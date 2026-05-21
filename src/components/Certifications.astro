@@ -1,0 +1,57 @@
+---
+import type { Translations } from "../i18n/es";
+interface Props {
+    t: Translations;
+}
+const { t } = Astro.props;
+const c = t.certs;
+
+const certs = [
+    {
+        icon: "NV",
+        name: "Getting Started with Deep Learning",
+        issuer: "NVIDIA DLI",
+    },
+    { icon: "edX", name: "Ethics in AI and Big Data", issuer: "edX — LFS112x" },
+    {
+        icon: "edX",
+        name: "Deep Learning Fundamentals with Keras",
+        issuer: "edX — DL0101EN",
+    },
+    {
+        icon: "DC",
+        name: "Data Scientist with Python Track",
+        issuer: "DataCamp",
+    },
+    { icon: "DC", name: "Building Chatbots in Python", issuer: "DataCamp" },
+    { icon: "~IN", name: "CompTIA A+ & Security+", issuer: c.inProgress },
+];
+---
+
+<section id="certs" class="relative z-10 bg-bg py-16 px-6 md:py-24 md:px-12">
+    <div class="flex items-center gap-4 mb-14 fade-up">
+        <span class="font-mono text-xs text-muted tracking-widest"
+            >{c.sectionNum}</span
+        >
+        <h2 class="text-3xl font-extrabold tracking-tight">{c.sectionTitle}</h2>
+        <div class="flex-1 h-px bg-border"></div>
+    </div>
+
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+        {
+            certs.map(({ icon, name, issuer }) => (
+                <div class="flex items-start gap-4 bg-bg-3 border border-border rounded-md px-5 py-4 hover:border-accent-2 transition-colors fade-up">
+                    <div class="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-bg-2 border border-border rounded font-mono text-[0.65rem] text-accent-2 tracking-wider">
+                        {icon}
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold leading-snug">{name}</p>
+                        <p class="font-mono text-xs text-muted mt-0.5">
+                            {issuer}
+                        </p>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

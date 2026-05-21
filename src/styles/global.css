@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0b;
+  --color-bg-2: #111113;
+  --color-bg-3: #18181c;
+
+  --color-border: #2a2a30;
+
+  --color-accent: #5ee8a0;
+  --color-accent-2: #38bdf8;
+  --color-accent-purple: #a855f7;
+
+  --color-muted: #6b7280;
+  --color-body: #e8e8ec;
+  --color-sub: #a0a0ab;
+
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --animate-pulse2: pulse2 2s ease-in-out infinite;
+  --animate-fade-up: fadeUp 0.6s ease forwards;
+
+  @keyframes pulse2 {
+    0%, 100% {
+      box-shadow: 0 0 0 4px rgba(94, 232, 160, 0.15);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(94, 232, 160, 0.05);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg text-body font-display overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .noise-bg::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+  .grid-bg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(#2a2a30 1px, transparent 1px),
+      linear-gradient(90deg, #2a2a30 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .text-stroke {
+    -webkit-text-stroke: 1px #a0a0ab;
+    color: transparent;
+  }
+  .avail-dot {
+    @apply animate-pulse2;
+  }
+}

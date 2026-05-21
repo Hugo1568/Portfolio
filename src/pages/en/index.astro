@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Experience from '../../components/Experience.astro';
+import Projects from '../../components/Projects.astro';
+import Certifications from '../../components/Certifications.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} title="Hugo Cano — Full Stack Developer & IT Specialist">
+  <Nav t={t} lang={lang} currentPath={Astro.url.pathname} />
+  <main>
+    <Hero t={t} />
+    <About t={t} />
+    <Experience t={t} />
+    <Projects t={t} />
+    <Certifications t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} />
+</Layout>

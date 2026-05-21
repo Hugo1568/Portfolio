@@ -1,0 +1,82 @@
+---
+import type { Translations } from "../i18n/es";
+interface Props {
+    t: Translations;
+}
+const { t } = Astro.props;
+const p = t.projects;
+
+const linkColorMap: Record<string, string> = {
+    green: "text-accent",
+    blue: "text-accent-2",
+    purple: "text-accent-purple",
+};
+---
+
+<section id="projects" class="relative z-10 bg-bg-2 py-16 px-6 md:py-24 md:px-12">
+    <div class="flex items-center gap-4 mb-14 fade-up">
+        <span class="font-mono text-xs text-muted tracking-widest"
+            >{p.sectionNum}</span
+        >
+        <h2 class="text-3xl font-extrabold tracking-tight">{p.sectionTitle}</h2>
+        <div class="flex-1 h-px bg-border"></div>
+    </div>
+
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
+        {
+            p.items.map(
+                ({
+                    num,
+                    name,
+                    desc,
+                    stack,
+                    link,
+                    linkColor,
+                    accent,
+                    easterEgg,
+                }) => (
+                    <div
+                        class:list={[
+                            "group bg-bg-3 border rounded-md p-7 relative overflow-hidden transition-all duration-200",
+                            "before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:opacity-0 before:transition-opacity",
+                            easterEgg
+                                ? "border-border blur-[6px] hover:blur-none hover:border-accent-purple cursor-pointer before:bg-accent-purple hover:before:opacity-100 hover:-translate-y-1"
+                                : accent
+                                  ? "border-border hover:border-accent-2 hover:-translate-y-1 before:bg-accent-2 hover:before:opacity-100"
+                                  : "border-border hover:border-accent hover:-translate-y-1 before:bg-accent hover:before:opacity-100",
+                        ]}
+                        title={easterEgg ? p.easterEggHint : undefined}
+                    >
+                        <p class="font-mono text-xs text-muted mb-3">{num}</p>
+                        <p class="text-lg font-bold mb-2">{name}</p>
+                        <p class="text-sub text-sm leading-relaxed mb-5">
+                            {desc}
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            {stack.map((s) => (
+                                <span class="font-mono text-[0.68rem] bg-bg-2 border border-border text-muted px-2 py-0.5 rounded-sm">
+                                    {s}
+                                </span>
+                            ))}
+                        </div>
+                        {link && (
+                            <a
+                                href={link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class:list={[
+                                    "inline-flex items-center gap-1.5 font-mono text-xs mt-4 transition-[gap] hover:gap-3",
+                                    linkColorMap[linkColor ?? "green"],
+                                ]}
+                            >
+                                {linkColor === "purple" || linkColor === "blue"
+                                    ? p.readTds
+                                    : p.viewSite}
+                            </a>
+                        )}
+                    </div>
+                ),
+            )
+        }
+    </div>
+</section>

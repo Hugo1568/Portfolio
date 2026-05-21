@@ -1,0 +1,47 @@
+---
+import type { Translations } from "../i18n/es";
+interface Props {
+    t: Translations;
+}
+const { t } = Astro.props;
+const e = t.experience;
+---
+
+<section id="experience" class="relative z-10 bg-bg py-16 px-6 md:py-24 md:px-12">
+    <div class="flex items-center gap-4 mb-14 fade-up">
+        <span class="font-mono text-xs text-muted tracking-widest"
+            >{e.sectionNum}</span
+        >
+        <h2 class="text-3xl font-extrabold tracking-tight">{e.sectionTitle}</h2>
+        <div class="flex-1 h-px bg-border"></div>
+    </div>
+
+    <div class="flex flex-col">
+        {
+            e.jobs.map(({ date, company, role, bullets, last }) => (
+                <div class="grid grid-cols-1 md:grid-cols-[200px_1px_1fr] gap-0 md:gap-x-8 fade-up">
+                    <div class="font-mono text-xs text-muted text-left md:text-right pt-1">
+                        {date}
+                    </div>
+                    <div class="hidden md:flex flex-col items-center">
+                        <div class="w-2.5 h-2.5 rounded-full bg-accent flex-shrink-0 mt-1" />
+                        {!last && <div class="flex-1 w-px bg-border mt-1" />}
+                    </div>
+                    <div class="pb-14">
+                        <p class="font-mono text-xs text-accent-2 tracking-widest uppercase mb-1">
+                            {company}
+                        </p>
+                        <p class="text-xl font-bold mb-4">{role}</p>
+                        <ul class="space-y-2">
+                            {bullets.map((b) => (
+                                <li class="text-sub text-sm leading-relaxed pl-5 relative before:content-['→'] before:absolute before:left-0 before:text-accent before:font-mono before:text-xs">
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

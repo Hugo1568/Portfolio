@@ -1,0 +1,72 @@
+---
+import type { Translations } from "../i18n/es";
+interface Props {
+    t: Translations;
+}
+const { t } = Astro.props;
+const h = t.hero;
+---
+
+<section id="hero" class="relative z-10 min-h-screen flex items-center px-6 pt-28 pb-16 md:py-0 md:px-12">
+    <div class="max-w-3xl">
+        <div
+            class="font-mono text-xs text-accent tracking-[0.15em] uppercase mb-6 flex items-center gap-3"
+        >
+            <span class="w-8 h-px bg-accent inline-block"></span>
+            {h.available}
+        </div>
+
+        <h1
+            class="text-[clamp(3rem,7vw,5.5rem)] font-display font-extrabold leading-[1.05] tracking-tighter mb-1"
+        >
+            <span class="text-body">{h.title1}</span><br />
+            <span class="text-stroke whitespace-nowrap">{h.title2}</span>
+        </h1>
+
+        <p
+            class="font-mono text-[clamp(0.85rem,2vw,1.1rem)] text-accent-2 mb-7 tracking-[0.04em]"
+        >
+            {h.subtitle}
+        </p>
+
+        <p class="text-sub leading-[1.75] max-w-xl mb-10 text-base font-normal">
+            {h.desc}
+        </p>
+
+        <div class="flex gap-4 flex-wrap">
+            <a
+                href="#projects"
+                class="bg-accent text-bg px-8 py-3 rounded font-bold text-sm hover:opacity-85 transition-opacity"
+            >
+                {h.cta1}
+            </a>
+            <a
+                href="#contact"
+                class="border border-border text-body px-8 py-3 rounded font-semibold text-sm hover:border-sub transition-colors"
+            >
+                {h.cta2}
+            </a>
+        </div>
+    </div>
+
+    <div
+        class="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 flex-col gap-8 font-mono text-right"
+    >
+        {
+            (
+                [
+                    ["3+", h.stat1],
+                    ["99%", h.stat2],
+                    ["100+", h.stat3],
+                ] as [string, string][]
+            ).map(([num, label]) => (
+                <div>
+                    <div class="text-[2.5rem] font-bold text-body leading-none">{num.replace(/[+%]/, "")}<span class="text-accent">{num.match(/[+%]/)?.[0]}</span></div>
+                    <div class="text-xs text-muted tracking-widest uppercase mt-1">
+                        {label}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>
